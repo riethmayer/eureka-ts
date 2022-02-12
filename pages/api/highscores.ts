@@ -9,8 +9,8 @@ export type HighScoreData = {
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>
+  res: NextApiResponse<HighScoreData[]>
 ) {
-  res.status(200).json({ name: "Walter", points: 123, rounds: 2 });
+  res.status(200).json([{ name: "Walter", points: 123, rounds: 2 }]);
   console.log(req, res);
 }
