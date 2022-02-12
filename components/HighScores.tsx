@@ -19,8 +19,8 @@ const fetchHighscores = async (): Promise<HighScoreData[] | undefined> => {
   }
 };
 
-const HighScore = (key: number, score: HighScoreData) => (
-  <li key={key}>
+const HighScore = ({ score }: { score: HighScoreData }) => (
+  <li key={score.name}>
     <p>{score.name}</p>
     <p>{score.points}</p>
     <p>{score.rounds}</p>
@@ -36,7 +36,7 @@ const HighScores = () => {
 
   return (
     <div>
-      {highscores.map({ highscore, index } => (
+      {highscores.map((highscore, index) => (
         <HighScore key={index} score={highscore} />
       ))}
     </div>
