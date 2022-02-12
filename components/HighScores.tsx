@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { HighScoreData } from "../pages/api/highscores";
 
-type JSONResponse = {
-  data?: Omit<HighScoreData[], "fetchedAt">;
-  errors?: Array<{ message: string }>;
-};
-
-const fetchHighscores = async (): Promise<HighScoreData[] | undefined> => {
-  const response = await window.fetch("/api/highscores");
-  const { data, errors }: JSONResponse = await response.json();
-  if (response.ok) {
-    return data;
-  } else {
-    const error = new Error(
-      errors?.map((e: { message: any }) => e.message).join("\n") ?? "unknown"
-    );
-    return Promise.reject(error);
-  }
-};
+const fetchHighscores = async (): Promise<HighScoreData[]> =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await fetch("/api/highscores");
+      const data: HighScoreData[] = await response.json();
+      resolve(data);
+    } catch (error) {
+      reject(error);
+    }
+  });
 
 const HighScore = ({ score }: { score: HighScoreData }) => (
   <li key={score.name}>
@@ -30,19 +23,25 @@ const HighScore = ({ score }: { score: HighScoreData }) => (
 const HighScores = () => {
   const [highscores, setHighscores] = useState<HighScoreData[]>([]);
   useEffect(() => {
-    // Update the document title using the browser API
-    const highscores = fetchHighscores().then((data) => {
-      if (data) {
-        setHighscores(data);
+    (async () => {
+      try {
+        const res = await fetchHighscores();
+        if (res) {
+          setHighscores(res);
+        }
+      } catch (error) {
+        console.log(error);
       }
-    });
-  });
+    })();
+  }, []);
 
   return (
     <div>
-      {highscores.map((highscore, index) => (
-        <HighScore key={index} score={highscore} />
-      ))}
+      <ul>
+        {highscores.map((highscore, index) => (
+          <HighScore key={index} score={highscore} />
+        ))}
+      </ul>
     </div>
   );
 };
