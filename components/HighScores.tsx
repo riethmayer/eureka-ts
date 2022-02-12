@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HighScoreData } from "../pages/api/highscores";
 
 type JSONResponse = {
@@ -29,7 +29,11 @@ const HighScore = ({ score }: { score: HighScoreData }) => (
 
 const HighScores = () => {
   const [highscores, setHighscores] = useState<HighScoreData[]>([]);
-
+  useEffect(async () => {
+    // Update the document title using the browser API
+    const highscores = await fetchHighscores();
+    setHighscores(highscores);
+  });
   // const highscores = fetchHighscores()
   //   .then((data) => <HighScore scores={data} />)
   //   .catch((err) => <p>{err.message} </p>);
