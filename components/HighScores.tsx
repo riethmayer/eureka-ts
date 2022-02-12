@@ -29,14 +29,14 @@ const HighScore = ({ score }: { score: HighScoreData }) => (
 
 const HighScores = () => {
   const [highscores, setHighscores] = useState<HighScoreData[]>([]);
-  useEffect(async () => {
+  useEffect(() => {
     // Update the document title using the browser API
-    const highscores = await fetchHighscores();
-    setHighscores(highscores);
+    const highscores = fetchHighscores().then((data) => {
+      if (data) {
+        setHighscores(data);
+      }
+    });
   });
-  // const highscores = fetchHighscores()
-  //   .then((data) => <HighScore scores={data} />)
-  //   .catch((err) => <p>{err.message} </p>);
 
   return (
     <div>
