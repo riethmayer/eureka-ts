@@ -2,6 +2,8 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 
+import HighScores from "../components/HighScores";
+
 const Home: NextPage = () => {
   return (
     <>
@@ -11,7 +13,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>Main</main>
+      <main>
+        <HighScores />
+      </main>
     </>
   );
 };

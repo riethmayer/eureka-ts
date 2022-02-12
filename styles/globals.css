@@ -18,6 +18,7 @@ a {
 }
 
 * {
+  color: white;
   box-sizing: border-box;
-  background-color: grey;
+  background-color: rgba(20, 22, 23, 0.7);
 }
