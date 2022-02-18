@@ -36,12 +36,26 @@ const HighScores = () => {
   }, []);
 
   return (
-    <div>
-      <ul>
-        {highscores.map((highscore, index) => (
-          <HighScore key={index} score={highscore} />
-        ))}
-      </ul>
+    <div className="flex flex-col m-auto w-[80%] items-center h-full pt-10">
+      <h1 className="text-3xl font-bold">Highscores</h1>
+      <table className="table-auto w-80">
+        <thead>
+          <tr>
+            <th className="text-left"></th>
+            <th className="text-left"></th>
+            <th className="text-left"></th>
+          </tr>
+        </thead>
+        <tbody>
+          {highscores.map((score, index) => (
+            <tr key={index}>
+              <td className="text-center">{index + 1}</td>
+              <td className="text-center">{score.name}</td>
+              <td className="text-center">{score.points}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

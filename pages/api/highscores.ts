@@ -12,5 +12,4 @@ export default function handler(
   res: NextApiResponse<HighScoreData[]>
 ) {
   res.status(200).json([{ name: "Walter", points: 123, rounds: 2 }]);
-  console.log(req, res);
 }
